@@ -9,17 +9,29 @@ class GameManager:
         self.debug = False
         self.game_over = False
         self.winner = None
+        self.board = Board()
         self.white_bot = WhiteBotClass("white")
         self.black_bot = BlackBotClass("black")
 
-    def _move(self, board, bot, colour):
+    def bot(self, colour):
+        return self.white_bot if colour == "white" else self.black_bot
+
+    def move(self, colour):
         opponent_colour = "white" if colour == "black" else "black"
+
         try:
             # white's move
-            move = bot.move(board.duplicate())
-            if self.debug:
-                print("%s %s: %s" % (len(board.move_history), colour, str(move)))
-            board.move(move)
+            move = self.bot(colour).move(self.board.duplicate())
+            if move in self.board.possible_moves(colour):
+                if self.debug:
+                    print("%s %s: %s" % (len(self.board.move_history), colour, str(move)))
+                self.board.move(move)
+            else:
+                if self.debug:
+                    print("%s %s: %s (invalid move. forfeit)" % (len(self.board.move_history), colour, str(move)))
+                self.winner = opponent_colour
+                self.game_over = True
+
         except Exception as e:
             if self.debug:
                 print(e)
@@ -27,20 +39,18 @@ class GameManager:
             self.game_over = True
 
     def play_chess(self):
-        board = Board()
-        board.start_board()
+        self.board.start_board()
 
         if self.debug:
-            board.print_board()
+            self.board.print_board()
 
         while not self.game_over:
+            for colour in ["white", "black"]:
+                if not self.winner:
+                    self.move(colour)
 
-            if not self.winner:
-                self._move(board, self.white_bot, "white")
-            if not self.winner:
-                self._move(board, self.black_bot, "black")
         if self.debug:
-            board.print_board()
+            self.board.print_board()
 
         return self.winner
 
