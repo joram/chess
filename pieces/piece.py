@@ -46,6 +46,10 @@ class Piece():
         if self.colour == "black" and self.position[1] == 1:
             return True
 
+    def position_str(self):
+        (x, y) = self.position
+        return "%s%s" % (ALPHABET[x], y)
+
     def __str__(self):
         (x, y) = self.position
         return "%s%s %s%s" % (COLOURS[self.colour],

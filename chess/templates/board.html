@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load dictionary %}
+
+
+{% block content %}
+  <div id="board">
+  {% for y in "ABCDEFGH" %}
+    <div class="row">
+    {% for x in "12345678" %}
+      <div id="{{ y }}{{ x }}" class="tile {% if forloop.parentloop.counter|add:forloop.counter|divisibleby:2 %}white{% else %}black{% endif %}">
+        {% with  y|add:x as position %}
+          {% if position in board_state %}
+            <img src="{{ board_state|get_item:position|piece_image_src }}" style="width:100px; margin-bottom:20px;"/>
+          {% endif %}
+        {% endwith %}
+      </div>
+    {% endfor %}
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}

@@ -63,30 +63,32 @@ class Board():
                 return piece
 
     def start_board(self):
+        self.game_over = False
+        self.winner = None
 
         # white
         self.add_piece(WhiteCastle((1, 1), self))
-        self.add_piece(WhiteKnight((2, 1), self))
-        self.add_piece(WhiteBishop((3, 1), self))
-        self.add_piece(WhiteQueen((4, 1), self))
-        self.add_piece(WhiteKing((5, 1), self))
-        self.add_piece(WhiteBishop((6, 1), self))
-        self.add_piece(WhiteKnight((7, 1), self))
-        self.add_piece(WhiteCastle((8, 1), self))
+        self.add_piece(WhiteKnight((1, 2), self))
+        self.add_piece(WhiteBishop((1, 3), self))
+        self.add_piece(WhiteQueen((1, 4), self))
+        self.add_piece(WhiteKing((1, 5), self))
+        self.add_piece(WhiteBishop((1, 6), self))
+        self.add_piece(WhiteKnight((1, 7), self))
+        self.add_piece(WhiteCastle((1, 8), self))
         for x in range(1, 9):
-            self.add_piece(WhitePawn((x, 2), self))
+            self.add_piece(WhitePawn((2, x), self))
 
         # black
-        self.add_piece(BlackCastle((1, 8), self))
-        self.add_piece(BlackKnight((2, 8), self))
-        self.add_piece(BlackBishop((3, 8), self))
-        self.add_piece(BlackQueen((4, 8), self))
-        self.add_piece(BlackKing((5, 8), self))
-        self.add_piece(BlackBishop((6, 8), self))
-        self.add_piece(BlackKnight((7, 8), self))
-        self.add_piece(BlackCastle((8, 8), self))
+        self.add_piece(BlackCastle((7, 1), self))
+        self.add_piece(BlackKnight((7, 2), self))
+        self.add_piece(BlackBishop((7, 3), self))
+        self.add_piece(BlackQueen((7, 4), self))
+        self.add_piece(BlackKing((7, 5), self))
+        self.add_piece(BlackBishop((7, 6), self))
+        self.add_piece(BlackKnight((7, 7), self))
+        self.add_piece(BlackCastle((7, 8), self))
         for x in range(1, 9):
-            self.add_piece(BlackPawn((x, 7), self))
+            self.add_piece(BlackPawn((8, x), self))
 
     def add_piece(self, piece):
         self.pieces.append(piece)
@@ -164,6 +166,12 @@ class Board():
                 row += "%s " % piece_name
             #    print("%s %s" % (piece_name, position))
             print(row)
+
+    def state(self):
+        s = {}
+        for piece in self.pieces:
+            s[piece.position_str()] = piece.name
+        return s
 
     def __str__(self):
         s = ""
