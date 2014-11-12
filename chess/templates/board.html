@@ -4,9 +4,21 @@
 
 {% block content %}
   <div id="board">
-  {% for y in "ABCDEFGH" %}
     <div class="row">
+        <div class="corner_tile"></div>
+        <div class="alpha_tile">A</div>
+        <div class="alpha_tile">B</div>
+        <div class="alpha_tile">C</div>
+        <div class="alpha_tile">D</div>
+        <div class="alpha_tile">E</div>
+        <div class="alpha_tile">F</div>
+        <div class="alpha_tile">G</div>
+        <div class="alpha_tile">H</div>
+    </div>
     {% for x in "12345678" %}
+    <div class="row">
+    <div class="num_tile">{{ forloop.counter }}</div>
+    {% for y in "ABCDEFGH" %}
       <div id="{{ y }}{{ x }}" class="tile {% if forloop.parentloop.counter|add:forloop.counter|divisibleby:2 %}white{% else %}black{% endif %}">
         {% with  y|add:x as position %}
           {% if position in board_state %}

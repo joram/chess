@@ -1,1 +1,2 @@
-__author__ = 'joram'
+from game import Game
+from move import Move

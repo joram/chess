@@ -5,7 +5,7 @@ class Pawn(Piece):
     def __init__(self, colour, position, board):
         Piece.__init__(self, "pawn", colour, position, board)
 
-    def possible_moves(self):
+    def possible_moves(self, recurse=0):
         possible_moves = []
         (x, y) = self.position
 
@@ -16,7 +16,8 @@ class Pawn(Piece):
 
         forward_two = (x, y+2*self.direction)
         forward_two_not_occupied = not self.board.square_occupied(forward_two)
-        if y == 2 and self.colour == "white" and forward_one_not_occupied and forward_two_not_occupied:
+        not_moved = (y, self.colour) in [(2, "white"), (7, "black")]
+        if not_moved and forward_one_not_occupied and forward_two_not_occupied:
             possible_moves.append(forward_two)
 
         diagonal_left = (x-1, y+self.direction)

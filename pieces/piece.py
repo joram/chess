@@ -16,7 +16,7 @@ PIECE_VALUES = {"pawn": 1,
 COLOURS = {"white": 'W',
            "black": 'B'}
 
-ALPHABET = ["?", "A", "B", "C", "D", "E", "F", "H", "G"]
+ALPHABET = ["?", "A", "B", "C", "D", "E", "F", "G", "H"]
 
 
 class Piece():
@@ -31,7 +31,7 @@ class Piece():
         self.position = position
         self.board = board
 
-    def possible_moves(self):
+    def possible_moves(self, recurse=5):
         return []
 
     def _within_board(self, position):
@@ -63,10 +63,10 @@ class SlidingPiece(Piece):
         self.slide_direction = slide_direction
         Piece.__init__(self, piece_type, colour, position, board)
 
-    def possible_moves(self):
+    def possible_moves(self, recurse=0):
         possible_moves = []
         for offset in self.slide_direction:
-            for distance in range(1, 8):
+            for distance in range(0, 8):
                 x = self.position[0] + offset[0]*distance
                 y = self.position[1] + offset[1]*distance
                 new_square = (x, y)

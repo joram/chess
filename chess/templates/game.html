@@ -1,11 +1,60 @@
 {% extends "board.html" %}
+{% load dictionary %}
+
 {% block content %}
-<table class="moves">
-</table>
-<div>
-  <div class="board">
-    {{ block.super }}
+<table>
+<tr>
+
+<td>
+  <table class="game_stats">
+    <tr class="row1"><td class="key">White:</td><td class="value">{{game.white_player}}</td></tr>
+    <tr class="row2"><td class="key">Black:</td><td class="value">{{game.black_player}}</td></tr>
+    <tr class="row1"><td class="key">Game:</td> <td class="value">{{game.id}}</td></tr>
+    <tr class="row2"><td class="key">Moves:</td><td class="value">{{game.moves_count}}</td></tr>
+  </table>
+</td>
+
+<td>
+  <div style="float:center;">
+    <div id="board-content">
+      {% with game.moves|first as move %}
+        {% with move.board_state as board_state %}
+          {{ block.super }}
+        {% endwith %}
+      {% endwith %}
+    </div>
+    <div class="controls"></div>
   </div>
-  <div class="controls"></div>
-</div>
+</td>
+
+<td>
+  <table class="moves">
+  {% for move in game.moves %}
+    <tr><td><a href="" class="move-btn" game-id="{{move.game.id}}" move-id="{{ forloop.counter }}">{{ move }}</a></td></tr>
+  {% endfor %}
+  </table>
+</td>
+
+</tr>
+</table>
+{% endblock %}
+
+{% block extraJS %}
+<script>
+$(document).ready(function(){
+  $(".move-btn").click(function(e){
+    e.preventDefault();
+    console.log(this);
+    game_id = $(this).attr('game-id');
+    move_index = $(this).attr('move-id');
+    $.ajax({
+      type: "GET",
+      url: "/game/"+game_id+"/move/"+move_index,
+      success:function(result){
+          $("#board-content").html(result);
+      }
+    });
+  });
+});
+</script>
 {% endblock %}
