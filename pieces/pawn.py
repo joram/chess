@@ -5,7 +5,7 @@ class Pawn(Piece):
     def __init__(self, colour, position, board):
         Piece.__init__(self, "pawn", colour, position, board)
 
-    def possible_moves(self, recurse=0):
+    def possible_moves(self):
         possible_moves = []
         (x, y) = self.position
 

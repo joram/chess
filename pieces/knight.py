@@ -5,7 +5,7 @@ class Knight(Piece):
     def __init__(self, colour, position, board):
         Piece.__init__(self, "knight", colour, position, board)
 
-    def possible_moves(self, recurse=0):
+    def possible_moves(self):
         possible_offsets = [(1, 2), (-1, 2), (1, -2), (-1, -2),
                             (2, 1), (-2, 1), (2, -1), (-2, -1)]
 

@@ -39,9 +39,41 @@
     line-height: 100px;
 }
 
+.content {
+  width: 1000px;
+  margin: 0 auto;
+}
+.board {
+  float: left;
+  width: 850px;
+}
+.moves {
+    height:850px;
+    width: 150px;
+    overflow-y: scroll;
+    float: right;
+}
 .row {
     display:inline-block;
 }
-#board {
-    width: 900px;
+
+
+div.controls {
+    float: bottom;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.controls > span.glyphicon {
+  border: solid thin black;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 6px;
 }

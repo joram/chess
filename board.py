@@ -1,4 +1,5 @@
 from pieces import *
+from pieces.king import King
 from chess.helpers import alpha_numeric_to_coords, alphanum_move_to_coord, other_colour
 import copy
 
@@ -142,12 +143,13 @@ class Board():
             if isinstance(p, piece_class):
                 return p
 
-    def threatened(self, piece, recurse=1):
+    def threatened(self, piece, ignore_kings=False):
         other_pieces = self.get_pieces(colour=other_colour(piece.colour))
         for other_piece in other_pieces:
-            for move in other_piece.possible_moves(recurse):
-                if move == piece.position:
-                    return True
+            if not (ignore_kings and isinstance(other_piece, King)):
+                for move in other_piece.possible_moves():
+                    if move == piece.position:
+                        return True
         return False
 
     def remove_piece(self, position):

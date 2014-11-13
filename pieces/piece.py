@@ -31,7 +31,7 @@ class Piece():
         self.position = position
         self.board = board
 
-    def possible_moves(self, recurse=5):
+    def possible_moves(self):
         return []
 
     def _within_board(self, position):
@@ -63,7 +63,7 @@ class SlidingPiece(Piece):
         self.slide_direction = slide_direction
         Piece.__init__(self, piece_type, colour, position, board)
 
-    def possible_moves(self, recurse=0):
+    def possible_moves(self):
         possible_moves = []
         for offset in self.slide_direction:
             for distance in range(0, 8):
